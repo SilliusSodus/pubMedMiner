@@ -42,7 +42,7 @@ def mining():
     writeToFile("words.txt",wordsDict)
 
 '''
-Haalt de juiste records van 
+Haalt de juiste informatie uit de opgehaalde records
 '''
 def read_input(records):
     for x in records:
@@ -51,6 +51,9 @@ def read_input(records):
             yield gensim.utils.simple_preprocess(x["MedlineCitation"]["Article"]["ArticleTitle"] + \
                              x["MedlineCitation"]["Article"]["Abstract"]["AbstractText"][0])
 
+'''
+Haalt de onnodige woorden uit het huidige model. Alleen de nouns, adjectives, woorden die minder dan 50 keer voorkomen en 3 woorden of korter zijn of 9 woorden of langer
+'''
 def disposeOfTheCommons(model, documents):
     text = " ".join([" ".join(i) for i in documents])
     freqDist = nltk.FreqDist(re.findall(r"[\w']+", text))
@@ -69,7 +72,9 @@ def disposeOfTheCommons(model, documents):
     return dict
 
 
-
+'''
+Voegt de waarden van gelijkheid toe aan de edges
+'''
 def getSims(model, words):
     dict = {}
     done = []
@@ -83,11 +88,12 @@ def getSims(model, words):
                         dict["" + x + " " + y] = [sim]
 
         done.append(x)
-        #file.write(str(len(done)))
-    #file.close()
-    #open('test2.txt', 'w+').write("sims has been played")
     return dict
 
+
+'''
+Voegt de links naar pubmed toe aan de edges
+'''
 def getPubLinks(dictWords, records):
     for words in dictWords.keys():
         if dictWords[words][0] > 0:
@@ -106,6 +112,10 @@ def getPubLinks(dictWords, records):
     #print("All be good")
     return dictWords
 
+
+'''
+Haalt de dataset op van pubmed dmv een term
+'''
 def getPubmedDocuments(db, term):
     Entrez.email = "s.temolder@student.han.nl"
     handle = Entrez.esearch(db=db, term=term, retmax=100000)

@@ -1,17 +1,17 @@
-import os
-import sys
+#import os
+#import sys
 from flask import Flask, render_template, request
-from Bio import Entrez
+#from Bio import Entrez
 import subprocess
 import transform
 #import DataBaseSanne
-import time
+#import time
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("casa.html")
+    return render_template("Home.html")
 
 @app.route('/Submit', methods=["GET"])
 def Submit():
@@ -25,7 +25,8 @@ def Submit():
     words = reading('words.txt')
     
     transform.writetograph(words,edges) #str(dict)
-    time.sleep(5)
+    #time.sleep(1000)
+    #print(str(open("static/js/graph.js").read()))
     return render_template("visualisatie.html")
 
 def mine(cmd):

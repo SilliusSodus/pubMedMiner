@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Biôôgle</title>
+        <link rel="stylesheet" type="text/css" href="http://cytosine.nl/~owe8_pg4/Applicatie.1/static/css/main.css"/>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<style>
+
+		form.example input[type=text] {
+    		padding: 10px;
+    		font-size: 17px;
+    		border: 1px solid grey;
+    		float: left;
+    		width: 80%;
+    		background: #f1f1f1;
+		}
+
+		form.example button {
+    		float: left;
+    		width: 20%;
+    		padding: 1px;
+    		background: #2ECCFA;
+    		color: white;
+    		font-size: 16.5px;
+    		border: 1px solid grey;
+    		border-left: none;
+    		cursor: pointer;
+    	}
+
+    	form.example::after {
+    		content: "";
+    		clear: both;
+    		display: table;
+		}
+
+        /* Banner */
+        #banner {
+		padding: 12em 0 10em 0;
+		background-image: url('http://cytosine.nl/~owe8_pg4/Applicatie.1/static/banner.jpg');
+		background-size: cover;
+		background-position: top;
+		background-attachment: fixed;
+		background-repeat: no-repeat;
+		text-align: center;
+		border-top: 0.5em solid #5385c1;
+	}
+		#banner h1 {
+			font-size: 3.5em;
+			font-weight: 100;
+			color: #fff;
+			line-height: 1em;
+			margin: 0 0 0.5em 0;
+			padding: 0;
+		}
+		#banner p {
+			font-size: 1em;
+			color: rgba(255, 255, 255, 0.55);
+			margin-bottom: 1.75em;
+		}
+		@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+			#banner {
+				background-attachment: scroll;
+			}
+		}
+		@media screen and (max-width: 1280px) {
+			#banner {
+				padding: 10em 2em 8em 2em;
+			}
+		}
+		@media screen and (max-width: 980px) {
+			#banner {
+				background-attachment: scroll;
+			}
+		}
+		@media screen and (max-width: 736px) {
+			#banner {
+				padding: 8em 1.5em 6em 1.5em;
+			}
+				#banner h1 {
+					font-size: 2.5em;
+				}
+				#banner p {
+					font-size: .9em;
+				}
+		}
+		@media screen and (max-width: 480px) {
+			#banner {
+				padding: 6em 1.5em 4em 1.5em;
+			}
+		}
+
+		</style>
+	</head>
+	<body>
+
+		<!-- Header 
+		Hierin staat het logo van de site 
+		-->
+			<header id="header">
+				<div class="inner">
+					<nav id="nav">
+					<p href="Home.html" class="logo"><span style="color:#FE2E2E;font-size:24px"><i>Biô</i></span><span style="color:#5882FA;font-size:24px">ô</span><span style="color:#FAAC58;font-size:24px">g</span><span style="color:#5882FA;font-size:24px">l</span><span style="color:#FAAC58;font-size:24px">e</span> </p>
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+		<!-- Banner
+		Hierin staat de afbeelding die bovenaan de homepagina staat. Ook staat hier de tekst die getoont wordt in de afbeelding en de zoekbalk met bijbehorende
+		actie benoemd
+		-->
+			<section id="banner">
+				<h1> Welcome to Biôôgle</h1>
+				<p>A textmining tool to find health benefits in vegetibles and fruit.</p>
+				<br> <br> <br> <br> <br> <br> <br>
+				<P STYLE="font-size: 24px; font-family: Aharoni;">Enter here a fruit or vegetable you want to textmine</P>
+                <form class="example" action="{{ url_for('Submit') }}" style="margin:auto;max-width:400px" method="GET">
+  					<input type="text" placeholder="Search.." name="search">
+  					<button type="submit"><i class="fa fa-search"></i></button>
+				</form>
+            </section>
+
+
+
+		<!-- One\
+		Hierin staan drie blokken met extra informatie over de "assignment", de opdrachtgever: "Han Biocentre" en het "textminen" dat gebruikt wordt voor de functionaliteit voor de tool
+		-->
+			<section id="one" class="wrapper">
+				<div class="inner">
+					<div class="flex flex-3">
+						<article>
+							<header>
+								<h3>Assignment<br /> </h3>
+							</header>
+							<p>As part of a large research consortium, we wish to investigate the science behind the health claims of bitter gourd, yam and other vegetables. A bioinformatics approach can be used to identify compounds of interest, and identify if those compounds exist in other fruits and in what ratios. The aim of this research is to identify the data from literature and analyse them to provide an inventory of knowledge.</p>
+							<!--<form action="https://specials.han.nl/sites/biocentre/"> 
+								<input type="submit" value="more"/>
+							</form> -->
+						</article>
+						<article>
+							<header>
+								<h3>Han Biocentre<br /> </h3>
+							</header>
+							<p>The HAN BioCentre is the Centre of Expertise for Biotechnology and Analysis at the HAN University of Applied Sciences in Nijmegen. We carry out applied research within the theme of Biodiscovery in collaboration with business partners and other research institutes. The resulting knowledge contributes to the Biobased economy. <br><br>Click on the button below for more information</p>
+							<form action="https://specials.han.nl/sites/biocentre-en/index.xml">
+								<input type="submit" value="more"/>
+							</form>
+						</article>
+						<article>
+							<header>
+								<h3>Textmining <br /> </h3>
+							</header>
+							<p>Text Mining is the discovery by computer of new, previously unknown information, by automatically extracting information from different written resources. A key element is the linking together of the extracted information together to form new facts or new hypotheses to be explored further by more conventional means of experimentation.
+</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+		<!-- Two
+		Hierin staat de introductie van het ontwikkelingsteam
+		-->
+			<section id="two" class="wrapper style1 special">
+				<div class="inner">
+					<header>
+						<h2>development team</h2>
+						<p>Bio-informatics class of 2018</p>
+					</header>
+					<div class="flex flex-4">
+						<div class="box person">
+							<div class="image round">
+                                <a href="/"><img src="http://cytosine.nl/~owe8_pg4/Applicatie.1/static/pic03.jpg" alt="Person 1" /></a>
+							</div>
+							<h3>Sanne</h3>
+							<p>Take my advise, I don't use it anyway</p>
+						</div>
+						<div class="box person">
+							<div class="image round">
+                                <a href="/"><img src="http://cytosine.nl/~owe8_pg4/Applicatie.1/static/pic04.jpg" alt="Person 2" /></a>
+							</div>
+							<h3>Nicky</h3>
+							<p>The world is a book, and those who do not travel only read one page</p>
+						</div>
+						<div class="box person">
+							<div class="image round">
+                                <a href="/"><img src="http://cytosine.nl/~owe8_pg4/Applicatie.1/static/pic05.jpg" alt="Person 3" /></a>
+							</div>
+							<h3>Ayla</h3>
+							<p>Life is short, eat dessert first</p>
+						</div>
+						<div class="box person">
+							<div class="image round">
+                                <a href="/"><img src="http://cytosine.nl/~owe8_pg4/Applicatie.1/static/pic06.jpg" alt="Person 4" /></a>
+							</div>
+							<h3>Sebastiaan</h3>
+							<p>I'm not crazy. My reality is just different from yours</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		<!-- Three
+		Hierin staat extra informatie over de hoofdonderwerpen die belangrijk zijn voor het onderzoek mbv de tool.
+		-->
+			<section id="three" class="wrapper special">
+				<div class="inner">
+					<header class="align-center">
+						<h2>Background info</h2>
+						<p>C.elegans, Bittergourd and Yams  </p>
+					</header>
+					<div class="flex flex-2">
+						<article>
+							<div class="image fit">
+							<br> <br> <br> <br>
+                                <a href="/"><img src="http://cytosine.nl/~owe8_pg4/Applicatie.1/static/pic01.jpg" alt="Pic 01" /></a>
+							</div>
+							<header>
+								<br>
+								<h3>C.elegans</h3>
+							</header>
+							<p>Caenorhabditis elegans is a free-living (not parasitic), transparent nematode (roundworm), about 1 mm in length, that lives in temperate soil environments. It is the type species of its genus. C. elegans has been extensively used as a model organism since 1963 and it was the first multicellular organism to have its whole genome sequenced. As of 2012, it is the only organism to have its connectome (neuronal "wiring diagram") completed. <br> <br> The genome contains an estimated 20,470 protein-coding genes and about 35% of C. elegans genes have human homologs.</p>
+							<form action="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1855192/">
+								<input type="submit" value="more"/>
+							</form>
+						</article>
+						<article>
+							<div class="image fit">
+                                <a href="/"><img src="http://cytosine.nl/~owe8_pg4/Applicatie.1/static/pic02.jpg" alt="Pic 02" /></a>
+							</div>
+							<header>
+								<h3>Bittergourd and Yam</h3>
+							</header>
+							<p>Momordica charantia, known as bitter melon or bitter gourd is a tropical and subtropical vine of the family Cucurbitaceae, widely grown in Asia, Africa, and the Caribbean for its edible fruit.<br> <br> Yam is the common name for some plant species in the genus Dioscorea (family Dioscoreaceae) that form edible tubers. Yams are perennial herbaceous vines cultivated for the consumption of their starchy tubers in many temperate and subtropical world regions</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+		<!-- Footer
+		Hierin staat een link naar waar de template voor de site vandaan komt.
+		-->
+			<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+						</div>
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
