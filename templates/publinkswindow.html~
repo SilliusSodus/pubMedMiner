@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<script>src="../static./js/graph.js"</script>
+<script>
+var ids = window.location.search;
+if (ids.substring(0,1) == '?') {
+	ids = ids.substring(1);
+}
+var data = ids.split(',');
+for (i = 0; (i < data.length); i++) {
+	data[i] = unescape(data[i]);
+}
+var linkdata = [];	
+for (i = 0; (i < data.length); ++i) {
+	linkdata[i] = unescape("https://www.ncbi.nlm.nih.gov/pubmed/"+ data[i]);
+}
+	
+for (i = 0; (i < data.length); ++i) {
+	document.write("<li><a href=' " + linkdata[i] +"/' target='_blank'>" + linkdata[i] + "</a></li>\n");
+}
+
+</script>

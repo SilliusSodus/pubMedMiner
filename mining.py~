@@ -1,0 +1,120 @@
+import nltk
+import sys
+import gensim
+#from gensim.models.word2vec import *
+from Bio import Entrez
+import re
+from itertools import chain
+
+
+'''
+Textminet pubmed op compounds en zet de resultaten in 2 files
+'''
+def mining():
+
+    search = sys.argv[1]
+    #print(search)
+
+    #preprocessing
+    records = getPubmedDocuments("pubmed", search)
+    documents = [i for i in read_input(records)]
+
+    #Textmining
+    model = gensim.models.Word2Vec(documents,size=150,window=10,min_count=20,workers=10)
+    model.train(documents, total_examples=len(documents), epochs=20)
+    #open('test2.txt','w+').write("textmining done")
+
+    #processing
+    words = disposeOfTheCommons(model, documents)
+    #print("Text mining done")
+
+    #Writing to files
+    sims = getSims(model, words)
+    dict = getPubLinks(sims, records)
+    file = open("/home/owe8_pg4/public_html/Applicatie.1/currentMining.txt", "w+")
+    file.write(str(dict))
+    file.close()
+
+
+    uniqueWords = set(list(chain.from_iterable([i.split(" ") for i in sims.keys()])))
+    #open("test3.txt", "w+").write(str(uniqueWords))
+    wordsDict = {}
+    for word in uniqueWords:
+        wordsDict[word] = 1
+    file1 = open("/home/owe8_pg4/public_html/Applicatie.1/words.txt", "w+")
+    file1.write(str(wordsDict))
+    file1.close()
+
+'''
+Haalt de juiste records van 
+'''
+def read_input(records):
+    for x in records:
+        if "Abstract" in x["MedlineCitation"]["Article"].keys() and "ArticleTitle" in x["MedlineCitation"][
+            "Article"].keys():
+            yield gensim.utils.simple_preprocess(x["MedlineCitation"]["Article"]["ArticleTitle"] + \
+                             x["MedlineCitation"]["Article"]["Abstract"]["AbstractText"][0])
+
+def disposeOfTheCommons(model, documents):
+    text = " ".join([" ".join(i) for i in documents])
+    freqDist = nltk.FreqDist(re.findall(r"[\w']+",text))
+    #open('test.txt', "w+").write(str(freqDist.keys()))
+
+    NNJJ = []
+    tokens = nltk.pos_tag(nltk.word_tokenize(text))
+    for x in tokens:
+        if "NN".__eq__(x[1]) or "JJ".__eq__(x[1]):
+            NNJJ.append(x[0])
+
+    dict = {}
+    for x in freqDist:
+        if freqDist[x] < 50 and x in model.wv.index2word and x in NNJJ and (len(x) < 4 or len(x) > 8):
+            dict[x] = freqDist[x]
+    #open('test2.txt', 'w+').write("bring out yer dead")
+    return dict
+
+def getSims(model, words):
+    dict = {}
+    done = []
+    #file = open('test2.txt', "w+")
+    for x in words:
+        for y in words:
+            if y not in done:
+                if x is not y:
+                    sim = model.wv.similarity(x, y)*10
+                    if sim > 6:
+                        dict["" + x + " " + y] = [sim]
+
+        done.append(x)
+        #file.write(str(len(done)))
+    #file.close()
+    #open('test2.txt', 'w+').write("sims has been played")
+    return dict
+
+def getPubLinks(dictWords, records):
+    for words in dictWords.keys():
+        if dictWords[words][0] > 0:
+            for record in records:
+                if "Abstract" in record["MedlineCitation"]["Article"].keys() and "ArticleTitle" in \
+                        record["MedlineCitation"]["Article"].keys():
+                    text = record["MedlineCitation"]["Article"]["ArticleTitle"] + \
+                           record["MedlineCitation"]["Article"]["Abstract"]["AbstractText"][0]
+                    if words.split(" ")[0] in text and words.split(" ")[1] in text:
+                        dictWords[words].append(int(record["MedlineCitation"]["PMID"]))
+                if len(dictWords[words]) > 5:
+                    continue
+
+        if len(dictWords[words]) < 2:
+            dictWords[words].append(1)
+    #print("All be good")
+    return dictWords
+
+def getPubmedDocuments(db, term):
+    Entrez.email = "s.temolder@student.han.nl"
+    handle = Entrez.esearch(db=db, term=term, retmax=100000)
+    handle2 = Entrez.efetch(db=db, id=Entrez.read(handle)["IdList"], retmode="xml")
+    records = Entrez.read(handle2)["PubmedArticle"]
+    return records
+
+
+mining()
