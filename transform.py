@@ -1,6 +1,6 @@
 def writetograph(words, links):
 
-    file = open("static/js/graph.js", "w+")
+    file = open("/home/owe8_pg4/public_html/Applicatie.1/static/js/graph.js", "w+")
     file.write('var graph = {\n\t"nodes": [\n')
 
     for word, group in words.items():
@@ -18,4 +18,6 @@ def writetograph(words, links):
         file.write("]},\n")
     file.write("\t]\n}")
     file.close()
+
+
 
